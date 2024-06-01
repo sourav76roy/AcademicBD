@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* scrolling behaver smooth */
+html,
+body,
+#root {
+  scroll-behavior: smooth;
+}
+
+/* custom antd  */
+.ant-modal-footer {
+  display: none;
+}

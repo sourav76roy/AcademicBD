@@ -1,0 +1,412 @@
+export default function QuestionsLists({ questions, groupId, bookId }) {
+  const { isUser } = useStore();
+  const [form] = Form.useForm();
+  const navigate = useNavigate();
+
+  console.log("questions ", questions);
+
+  const onFinish = (values) => {
+    console.log("values ", values);
+  };
+
+  return (
+    <Form layout="vertical" onFinish={onFinish}>
+      <div className="flex flex-col justify-start items-start gap-6">
+        {/* MCQ Questions */}
+        <div>
+          <h2 className="text-lg font-semibold mb-4">MCQ Questions</h2>
+          <McqQuestions questions={questions?.mcqs} />
+        </div>
+
+        {/* boolean questions */}
+        <div>
+          <h2 className="text-lg font-semibold mb-4">Boolean Questions</h2>
+          <p>
+            Do the following statements agree with the information given in
+            Reading Passage?
+          </p>
+
+          {/* information */}
+          <div className="mt-5 border p-4 rounded-md divide-y">
+            <div className="flex items-center justify-start gap-3">
+              <h3 className="text-base font-semibold mb-2 w-1/4">True</h3>
+              <p>if the statement agrees with the information</p>
+            </div>
+            <div className="flex items-center justify-start gap-3">
+              <h3 className="text-base font-semibold mb-2 w-1/4">False</h3>
+              <p>if the statement contradicts the information</p>
+            </div>
+            <div className="flex items-center justify-start gap-3">
+              <h3 className="text-base font-semibold mb-2 w-1/4">Not Given</h3>
+              <p>if there is no information on this</p>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-5 items-start justify-start mt-5">
+            <BooleanQuestions questions={questions?.booleanQs} />
+          </div>
+        </div>
+
+        {/* Fill in the gap */}
+        <div>
+          <h2 className="text-lg font-semibold mb-4">Fill in the blanks</h2>
+          <p>
+            Complete the following sentences with a word or words from the
+            Reading Passage.
+          </p>
+
+          <div>
+            <FillInTheGapQuestions questions={questions?.fitgQs} />
+          </div>
+        </div>
+      </div>
+
+      <Form.Item className="text-center">
+        <Space>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </Space>
+      </Form.Item>
+    </Form>
+  );
+}
+
+function FillInTheGapQuestions({ questions }) {
+  return (
+    <>
+      <div className="flex flex-col gap-5 items-start justify-start mt-5">
+        {questions?.map((question, idx) => (
+          <FillInTheGapQuestionItem
+            question={question}
+            key={question._id}
+            idx={idx + 1}
+          />
+        ))}
+      </div>
+    </>
+  );
+}
+
+function FillInTheGapQuestionItem({ question }) {
+  // ###(number) id define and replace input field
+  const parts = question.question.split(/(###\d+)/);
+  const processedQuestion = parts.map((part, index) => {
+    const matchNumber = part.match(/\d+/);
+    if (matchNumber) {
+      const number = matchNumber[0];
+      return (
+        <Form.Item key={index} name={part} className="w-24 inline-block">
+          <Input placeholder={index} />
+        </Form.Item>
+      );
+    } else {
+      return <span key={index}>{part}</span>;
+    }
+  });
+
+  return (
+    <div className="text-base mb-2 flex items-start justify-start gap-2.5">
+      <p>{processedQuestion}</p>
+    </div>
+  );
+}
+
+function BooleanQuestions({ questions, setBooleanData }) {
+  return (
+    <div>
+      <div className="flex flex-col gap-5 items-start justify-start mt-5">
+        {questions?.map((question, idx) => (
+          <BooleanQuestionItem
+            question={question}
+            key={question._id}
+            idx={idx + 1}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// Boolean Questions
+function BooleanQuestionItem({ question, idx }) {
+  return (
+    <div className="flex items-center gap-2.5">
+      <span>{idx}. </span>
+      <Form.Item
+        name={question?._id}
+        className="text-base font-semibold mb-2 flex items-start justify-start gap-2.5 w-24"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Select
+          placeholder="Select a option and change input text above"
+          allowClear
+        >
+          <Select.Option value="true">True</Select.Option>
+          <Select.Option value="false">False</Select.Option>
+          <Select.Option value="notSure">Not Sure</Select.Option>
+        </Select>
+      </Form.Item>
+      <span>{question.question}</span>
+    </div>
+  );
+}
+
+ function McqQuestions({ questions, setMcqData }) {
+  return (
+    <div className="min-h-max">
+      <div className="flex flex-col gap-5 items-start justify-start">
+        {questions?.map((question, idx) => (
+          <McqQuestionItem
+            question={question}
+            key={question._id}
+            idx={idx + 1}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// question item component
+function McqQuestionItem({ question, idx, setMcqAns }) {
+  const [value, setValue] = useState(1);
+
+  const onChange = (e) => {
+    setValue(e.target.value);
+  };
+
+  return (
+    <Form.Item
+      label={
+        <h3 className="text-base font-semibold">
+          {idx}. {question.question}
+        </h3>
+      }
+      name={question?._id}
+    >
+      <Radio.Group onChange={onChange} value={value}>
+        {Object.entries(question.options).map((option, index) => (
+          <Radio key={index} value={option[0]} className={`block my-2 w-full `}>
+            {option[1]}
+          </Radio>
+        ))}
+      </Radio.Group>
+    </Form.Item>
+  );
+}
+
+---------------------------
+console.log 
+
+'questions ' questions: {
+  mcqs: [
+    {
+      _id: '66419e59e7134fde0ed10c0b',
+      question: 'The writer suggests that Brantingham and Beekman\'s findings were',
+      options: {
+        A: 'ignored by big companies.',
+        B: 'doubted by other researchers.',
+        C: 'applicable to a narrow range of people.',
+        D: 'surprising to them.'
+      },
+      correctAns: 'C',
+      type: 'mcq',
+      bookId: '6640ea4954f6a6ca9fb1d543',
+      groupId: '66419c89e7134fde0ed10b96',
+      userId: '6637b176adcf9f79462c2d9e',
+      status: 'active',
+      __v: 0
+    },
+    {
+      _id: '66419e7fe7134fde0ed10c24',
+      question: 'Which of the following points does the writer make in the final paragraph?',
+      options: {
+        A: 'ignored by big companies.',
+        B: 'by other researchers.',
+        C: 'applicable to a range of people.',
+        D: 'to them.'
+      },
+      correctAns: 'B',
+      type: 'mcq',
+      bookId: '6640ea4954f6a6ca9fb1d543',
+      groupId: '66419c89e7134fde0ed10b96',
+      userId: '6637b176adcf9f79462c2d9e',
+      status: 'active',
+      __v: 0
+    }
+  ],
+  booleanQs: [
+    {
+      _id: '66419ea5e7134fde0ed10c3d',
+      question: 
+        'The subjects in Fisher\'s control group experienced a decline in their physical condition.',
+      options: [ 'true', 'false', 'notSure' ],
+      correctAns: 'false',
+      type: 'boolean',
+      bookId: '6640ea4954f6a6ca9fb1d543',
+      groupId: '66419c89e7134fde0ed10b96',
+      userId: '6637b176adcf9f79462c2d9e',
+      status: 'active',
+      __v: 0
+    },
+    {
+      _id: '66419eb1e7134fde0ed10c56',
+      question: 'The manufacturers are increasing the number of cobblestone mats they are making.',
+      options: [ 'true', 'false', 'notSure' ],
+      correctAns: 'notSure',
+      type: 'boolean',
+      bookId: '6640ea4954f6a6ca9fb1d543',
+      groupId: '66419c89e7134fde0ed10b96',
+      userId: '6637b176adcf9f79462c2d9e',
+      status: 'active',
+      __v: 0
+    }
+  ],
+  fitgQs: [
+    {
+      _id: '66419f73e7134fde0ed10c6f',
+      question: 
+        'In their research, Brantingham and Beekman looked at the complex physical ###1 of the foot and noted that the surfaces of modem environments restrict its movement. They invented a mat which they tried out on factory workers. Whenever the workers walked on it, the different levels of ###2 in the mat would encourage greater muscle action. In turn, this lessened the effect of ###3 on the cardiovascular system.',
+      correctAns: [
+        { id: '###1', answer: 'yes' },
+        { id: '###2', answer: 'no' },
+        { id: '###3', answer: 'very good' }
+      ],
+      type: 'fitg',
+      bookId: '6640ea4954f6a6ca9fb1d543',
+      groupId: '66419c89e7134fde0ed10b96',
+      userId: '6637b176adcf9f79462c2d9e',
+      status: 'active',
+      __v: 0
+    }
+  ]
+}
+
+
+'values ' values: {
+  '66419e59e7134fde0ed10c0b': 'A',
+  '66419e7fe7134fde0ed10c24': 'C',
+  '66419ea5e7134fde0ed10c3d': 'false',
+  '66419eb1e7134fde0ed10c56': 'true',
+  '###1': 'yes',
+  '###2': 'no ',
+  '###3': 'very good'
+}
+
+
+-----------------------
+all questions list checking true or false & counting correct answers & wrong answers & not answered questions count & store all history in array of objects
+
+how to solve my issue
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+================================================
+// api calling
+import axios from "axios";
+import { useEffect } from "react";
+
+const axiosSecure = axios.create({ baseURL: import.meta.env.VITE_serverURL });
+
+// console.log("import.meta.env.VITE_serverURL ", import.meta.env.VITE_serverURL);
+
+export default function useAxiosSecure() {
+  useEffect(() => {
+    axiosSecure.interceptors.request.use((config) => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    });
+  }, []);
+
+  return { axiosSecure, baseURL: import.meta.env.VITE_serverURL };
+}
+
+------------------------------->
+
+
+// zustand store for global state management
+// this store is used to store the state of the application
+// and to update the state of the application
+
+import create from "zustand";
+import { devtools } from "zustand/middleware";
+
+// create a stored state & api call
+export const useStore = create(
+  devtools((set) => ({
+    // state of the application
+    isUser: {
+      user: null,
+      isLogin: false,
+      token: null,
+      role: null,
+    },
+    books: [],
+
+    // login action
+    /**
+     * @param {*} user data
+     * @param {*} token
+     * @param {*} isLogin
+     * @param {*} user role
+     */
+    getLogin: (user, token, isLogin, role) => {
+      set({
+        isUser: {
+          user: user,
+          isLogin: isLogin,
+          token: token,
+          role: role,
+        },
+      });
+    },
+
+    // logout action
+    logout: () => {
+      localStorage.removeItem("authUser");
+      set({
+        isUser: { user: null, isLogin: false, token: null, role: null },
+      });
+    },
+
+    // book action
+    getBooks: (data) => {
+      set({
+        books: [...data],
+      });
+    },
+  }))
+);
+
+
+--------------------------------
+
+
+Use my system of this component as axios. Or if there is any other system to have user login then do it.
+
+And make API calls from one place and separate file for each task. I can store the data by api get then I can use the data in the store from anywhere
+
+how to call API get , post, put method using axios in zustand
+How to use the butter of zustand
+implement now

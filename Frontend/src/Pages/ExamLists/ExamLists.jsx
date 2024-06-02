@@ -15,7 +15,7 @@ export default function ExamLists() {
   const location = useLocation();
   const [bookData, setBookData] = useState([]);
   const [bookType, setBookType] = useState({ value: location?.state || "all" });
-
+  console.log(bookData)
   // fiter status check
   useEffect(() => {
     setBookData(

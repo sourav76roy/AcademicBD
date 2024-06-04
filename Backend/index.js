@@ -34,7 +34,7 @@ app.use("/result", resultRoutes);
 app.get("/", (req, res) => {
   res.status(200).send(
     `<div style="display: flex; margin: auto; justify-content: center; flex-direction: column; align-items: center; height: 100vh;"> 
-      <h1 style="color:green;"> Assalamualaikum vai ki obosta </h1> 
+      <h1 style="color:green;"> Welcome to Academicbd server </h1> 
       <p> Server Running Success </p> 
     </div>`
   );

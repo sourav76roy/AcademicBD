@@ -78,6 +78,7 @@ export default function NavItems() {
   return (
     <div>
       <Menu
+      className="bg-orange-400"
         onClick={onClick}
         selectedKeys={[current]}
         mode="horizontal"

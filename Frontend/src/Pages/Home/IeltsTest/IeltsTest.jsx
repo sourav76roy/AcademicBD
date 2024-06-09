@@ -16,7 +16,7 @@ export default function IeltsTest() {
       <Container>
         <SectionTitle
           title="test you skills"
-          description="We develop and write the IELTS test."
+          description="Start Your Journey With AcademicBD."
         />
 
         {/* section content */}
@@ -25,28 +25,28 @@ export default function IeltsTest() {
             cartTitle="Reading Test"
             img={AcademicReading}
             type="reading"
-            description="hello bangladesh "
+            description="This is Your Reading test for start the test click on start button below"
           />
 
           <IeltsCard
             cartTitle="Writing Test"
             img={AcademicWriting}
             type="writing"
-            description="hello bangladesh "
+            description="This is Your Writing test for start the test click on start button below "
           />
 
           <IeltsCard
             cartTitle="Speaking Test"
             img={AcademicSpeaking}
             type="speaking"
-            description="hello bangladesh "
+            description="This is Your Speaking test for start the test click on start button below "
           />
 
           <IeltsCard
             cartTitle="Listening Test"
             img={AcademicListening}
             type="listening"
-            description="hello bangladesh 4"
+            description="This is Your Listening test for start the test click on start button below"
           />
         </Row>
       </Container>
@@ -73,9 +73,9 @@ function IeltsCard({ cartTitle, img, type, description }) {
          {description}
         </p>
 
-        <div className="flex justify-center items-stretch">
+        <div className="flex justify-center items-stretch ">
           <Link to="/exam-lists" state={type}>
-            <Button> Let's Go </Button>
+            <Button className="bg-green-500"> Start </Button>
           </Link>
         </div>
       </Card>

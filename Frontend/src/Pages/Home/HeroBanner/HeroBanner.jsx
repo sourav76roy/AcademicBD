@@ -28,16 +28,16 @@ export default function HeroBanner() {
               <h2 className="text-lg font-medium mb-2">Growth Your Skills</h2>
               <div className="flex justify-center gap-4 flex-wrap">
                 <Link to="/exam-lists" state="reading">
-                  <Button className="border-solid border-2 border-red-700 ring-offset-2 ring-4 ring-Yellow-800 bg-orange-700 ">Reading</Button>
+                  <Button className="border-solid border-2 border-red-700 ring-offset-2 ring-4 ring-fuchsia-800 bg-orange-700 ">Reading</Button>
                 </Link>
                 <Link to="/exam-lists" state="writing">
                   <Button className="border-solid border-2 border-red-700 ring-offset-2 ring-4 ring-amber-800 bg-orange-700 " >Writing</Button>
                 </Link>
                 <Link to="/exam-lists" state="speaking">
-                  <Button className="border-solid border-2 border-red-700 ring-offset-2 ring-4 ring-blue-800 bg-orange-700 " >Speaking</Button>
+                  <Button className="border-solid border-2 border-red-700 ring-offset-2 ring-4 ring-lime-800 bg-orange-700 " >Speaking</Button>
                 </Link>
                 <Link to="/exam-lists" state="listening">
-                  <Button className="border-solid border-2 border-red-700 ring-offset-2 ring-4 ring-purple-800 bg-orange-700 " >Listening</Button>
+                  <Button className="border-solid border-2 border-red-700 ring-offset-2 ring-4 ring-pink-800 bg-orange-700 " >Listening</Button>
                 </Link>
               </div>
             </div>

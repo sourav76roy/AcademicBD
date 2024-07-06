@@ -55,9 +55,13 @@ export default function BookUpdate({ initialValues = {} }) {
       uid: "-1",
       name: "image.png",
       status: "done",
+      url: initialValues?.image?.url || "",
     },
   ]);
-  const [imageStore, setImageStore] = useState({});
+  const [imageStore, setImageStore] = useState({
+    url: initialValues?.image?.url || "",
+    delete_url: initialValues?.image?.delete_url || "",
+  });
   // Image hosting api
   const image_hosting_url = import.meta.env.VITE_Image_URL;
   const [form] = Form.useForm();
@@ -181,7 +185,7 @@ export default function BookUpdate({ initialValues = {} }) {
       payment: values.payment,
     };
 
-    // console.log("finishData", finishData);
+    console.log("finishData", finishData);
     axiosSecure
       .put(`/book/${initialValues?._id}`, finishData)
       .then((res) => {

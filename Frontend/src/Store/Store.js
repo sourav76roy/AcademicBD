@@ -31,6 +31,8 @@ export const useStore = create(
     userResults: [],
     users: [],
     allResults: [],
+    allPaymentHistory: [],
+    userPaymentHistory: [],
 
     // login action
     /**
@@ -135,6 +137,45 @@ export const useStore = create(
         // recall getAllResultTest
       } catch (error) {
         console.error("Error updating user result:", error);
+      }
+    },
+
+    // fetch user payment history
+    getUserPaymentHistory: async (userId) => {
+      try {
+        const response = await axiosInstance.get(
+          `/payment/user-payment-history/${userId}`
+        );
+        console.log("response ", response);
+        set({
+          userPaymentHistory: response?.data?.data ? response?.data?.data : [],
+        });
+      } catch (error) {
+        console.error("Error fetching user payment history:", error);
+      }
+    },
+
+    // payment
+    paymentPost: async (data) => {
+      try {
+        const response = await axiosInstance.post("/payment/oder", data);
+        // console.log("paymentPost response ", response);
+
+        return response?.data?.data;
+      } catch (err) {
+        console.log("paymentPost err: ", err);
+      }
+    },
+
+    // get all result test
+    getAllPaymentHistory: async () => {
+      try {
+        const response = await axiosInstance.get("/payment/payment-history");
+        set({
+          allPaymentHistory: response?.data.data ? response?.data.data : [],
+        });
+      } catch (error) {
+        console.log("getResultTest");
       }
     },
   }))

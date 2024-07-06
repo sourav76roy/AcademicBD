@@ -138,5 +138,3 @@ function GradeCard({ title, grade }) {
     </Card>
   );
 }
-
-

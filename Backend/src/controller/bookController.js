@@ -42,8 +42,6 @@ const createBook = async (req, res) => {
     });
     await book.save();
 
-    // console.log("book ", book);
-
     //   Return response
     res.status(201).json({ message: "Book created successfully" });
   } catch (error) {
@@ -54,20 +52,15 @@ const createBook = async (req, res) => {
 // book controller get function
 const getBooks = async (req, res) => {
   const { role } = req.params;
-  console.log("role", role);
 
   try {
     let books;
 
     // active books find
     if (role === "admin") {
-      console.log("books if");
       books = await bookModel.find();
-      console.log("books if");
     } else {
-      console.log("books else");
       books = await bookModel.find({ status: "active" });
-      console.log("books else", books);
     }
 
     // find all books & questionsGroups by bookId & questionsGroups into mcq by groupId
@@ -148,8 +141,6 @@ const getBooks = async (req, res) => {
       })
     );
 
-    // console.log("booksData", booksData);
-
     //  Return response
     res.status(200).json({ books: booksData });
   } catch (error) {
@@ -160,7 +151,8 @@ const getBooks = async (req, res) => {
 // book update controller function
 const updateBook = async (req, res) => {
   try {
-    const { userId, title, testType, description, image, status } = req.body;
+    const { userId, title, testType, description, image, status, payment } =
+      req.body;
     const { bookId } = req.params;
 
     // bookId validation
@@ -174,7 +166,15 @@ const updateBook = async (req, res) => {
     }
 
     //  Empty field validation
-    if (!userId || !title || !testType || !description || !image || !status) {
+    if (
+      !userId ||
+      !title ||
+      !testType ||
+      !description ||
+      !image ||
+      !status ||
+      !payment
+    ) {
       return res.status(400).json({ error: "All fields are required" });
     }
 
@@ -188,6 +188,7 @@ const updateBook = async (req, res) => {
         description,
         image,
         status,
+        payment,
       },
       { new: true }
     );
@@ -203,8 +204,6 @@ const updateBook = async (req, res) => {
 const bookDelete = async (req, res) => {
   try {
     const { bookId } = req.params;
-
-    // console.log("bookId", bookId);
 
     // bookId validation
     if (!bookId) {

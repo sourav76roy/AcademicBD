@@ -11,6 +11,7 @@ const bookRoutes = require("./src/routes/bookRoutes");
 const questionGroupRoutes = require("./src/routes/questionGroupRoutes");
 const questionsRoutes = require("./src/routes/questionsRoutes");
 const resultRoutes = require("./src/routes/resultRoutes");
+const paymentRoutes = require("./src/routes/paymentRoutes");
 
 // Desc: create express app
 const app = express();
@@ -29,12 +30,13 @@ app.use("/book", bookRoutes);
 app.use("/question-group", questionGroupRoutes);
 app.use("/questions", questionsRoutes);
 app.use("/result", resultRoutes);
+app.use("/payment", paymentRoutes);
 
 // Desc: create a simple routes
 app.get("/", (req, res) => {
   res.status(200).send(
     `<div style="display: flex; margin: auto; justify-content: center; flex-direction: column; align-items: center; height: 100vh;"> 
-      <h1 style="color:green;"> Welcome to Academicbd server </h1> 
+      <h1 style="color:green;"> Assalamualaikum </h1> 
       <p> Server Running Success </p> 
     </div>`
   );

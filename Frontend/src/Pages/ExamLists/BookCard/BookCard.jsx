@@ -1,14 +1,31 @@
 import { Badge, Card } from "antd";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Img from "../../../Components/Img";
 import CustomModal from "../../../Components/Modal/CustomModal";
 import ExamInfoModal from "./ExamInfoModal";
+import { useStore } from "../../../Store/Store";
+import { useLocation } from "react-router-dom";
 
 export default function BookCard({ book }) {
+  const { isUser } = useStore();
   const [showGroupQuestion, setShowGroupQuestion] = useState({});
   const [addQModalOpen, setAddQModalOpen] = useState(false);
+  const [paidBook, setPaidBook] = useState(false);
+  const location = useLocation();
 
-  // console.log("showGroupQuestion ", showGroupQuestion);
+  console.log("isUser ", isUser);
+
+  useEffect(() => {
+    if (isUser?.isLogin && isUser?.user?.email) {
+      if (book?.payment === "paid") {
+        setPaidBook(true);
+      } else {
+        setPaidBook(false);
+      }
+    } else {
+      location.pathname = "/login";
+    }
+  }, [book, addQModalOpen]);
 
   return (
     <div className="group">
@@ -62,6 +79,7 @@ export default function BookCard({ book }) {
                           ...group,
                           questionCount: count,
                           testType: book?.testType,
+                          paidBook: paidBook,
                         });
                       }}
                       title={group?.groupTitle}

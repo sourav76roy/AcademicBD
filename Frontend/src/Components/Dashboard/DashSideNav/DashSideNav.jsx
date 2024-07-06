@@ -62,7 +62,7 @@ const DashSideNav = () => {
           <CreditCardOutlined />
         </Link>
       ),
-      label: <Link to="./payment-manage">Payment</Link>,
+      label: <Link to="./payment-manage">User Payment</Link>,
     },
     {
       key: "5",

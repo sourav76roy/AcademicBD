@@ -5,7 +5,7 @@ import Logo from "../Logo";
 
 export default function Header() {
   return (
-    <header className="">
+    <header>
       <Container className="!py-0">
         <nav className="flex justify-between items-center py-4">
           <div>
@@ -13,7 +13,9 @@ export default function Header() {
           </div>
 
           {/* Menu items */}
+          <>
             <NavItems />
+          </>
         </nav>
       </Container>
     </header>

@@ -5,7 +5,7 @@ const bookSchema = new mongoose.Schema(
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "admin",
+      ref: "userModel",
       required: true,
     },
     title: {

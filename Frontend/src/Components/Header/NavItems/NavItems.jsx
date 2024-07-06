@@ -22,6 +22,10 @@ export default function NavItems() {
       label: <NavLink to="/exam-lists">Exam</NavLink>,
       key: "exam",
     },
+    {
+      label: <NavLink to="/payment">Payment</NavLink>,
+      key: "payment",
+    },
     !isLogin
       ? {
           label: <NavLink to="/login">Login</NavLink>,
@@ -78,7 +82,6 @@ export default function NavItems() {
   return (
     <div>
       <Menu
-      className="bg-orange-400"
         onClick={onClick}
         selectedKeys={[current]}
         mode="horizontal"

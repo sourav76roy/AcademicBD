@@ -1,22 +1,31 @@
 import { Button } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { useLocation, useNavigate } from "react-router-dom";
 import Container from "../../Components/Container";
 import SectionTitle from "../../Components/SectionTitle";
+import { useStore } from "../../Store/Store";
+import ListeningQuestionExam from "./QuestionsType/ListeningQuestionExam/ListeningQuestionExam";
 import ReadingQuestionsExam from "./QuestionsType/ReadingQuestionsExam/ReadingQuestionsExam";
+import SpeakingQuestionExam from "./QuestionsType/SpeakingQuestionExam/SpeakingQuestionExam";
 import WritingQuestionExam from "./QuestionsType/WritingQuestionExam/WritingQuestionExam";
 import "./style.css";
-import ListeningQuestionExam from "./QuestionsType/ListeningQuestionExam/ListeningQuestionExam";
-import SpeakingQuestionExam from "./QuestionsType/SpeakingQuestionExam/SpeakingQuestionExam";
 
 // exam page design
 export default function ExamRunning() {
   const navigate = useNavigate();
   const { state } = useLocation();
+  const { isUser } = useStore();
+
+  // login check
+  useEffect(() => {
+    if (!isUser?.isLogin) {
+      window.location.pathname = "/login";
+    }
+  }, [isUser]);
+
   // restart count timer
   const [timerKey, setTimerKey] = useState(0);
-  console.log("navigate state ", state);
   // if no state then redirect to exam-lists
   if (!state) {
     navigate("/exam-lists", { replace: true });
@@ -92,8 +101,6 @@ export default function ExamRunning() {
 
 // timer component
 function RenderTime({ remainingTime, onReTake }) {
-  // console.log("remainingTime ", remainingTime);
-
   // Express it in minutes and seconds
   const minutes = Math.floor(remainingTime / 60);
   const seconds = remainingTime % 60;

@@ -27,7 +27,7 @@ export default function ContactUs() {
     console.log(values);
   };
   return (
-    <Container id="contact" className="bg-green-300">
+    <Container id="contact">
       <Form
         layout="vertical"
         name="nest-messages"

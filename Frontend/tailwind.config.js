@@ -8,7 +8,7 @@ export default {
         secondary: "#4C1D95",
 
         // Custom background colors
-        bgPrimary: "#e8d79e",
+        bgPrimary: "#f9f9f9",
 
         // Custom text colors
         textHead: "#130f40",

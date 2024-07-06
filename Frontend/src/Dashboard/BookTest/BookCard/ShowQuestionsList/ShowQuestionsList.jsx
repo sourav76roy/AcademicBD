@@ -14,12 +14,12 @@ import useBooks from "../../../../Hooks/useBooks";
 import QuestionGroupUpdate from "../AddNewQuestionGroup/QuestionGroupUpdate";
 import AddListeningQ from "./AddQuestion/AddListeningQ";
 import AddQuestion from "./AddQuestion/AddQuestion";
+import AddSpeakingQ from "./AddQuestion/AddSpeakingQ";
 import AddWritingQ from "./AddQuestion/AddWritingQ";
 import ListeningQuestionsLists from "./QuestionLists/ListeningQuestionsLists";
-import WritingQuestionsLists from "./QuestionLists/WritingQuestionsLists";
 import ReadingQuestionsLists from "./QuestionLists/ReadingQuestionsLists";
-import AddSpeakingQ from "./AddQuestion/AddSpeakingQ";
 import SpeakingQuestionsLists from "./QuestionLists/SpeakingQuestionsLists";
+import WritingQuestionsLists from "./QuestionLists/WritingQuestionsLists";
 const { confirm } = Modal;
 
 export default function ShowQuestionsList({
@@ -40,23 +40,18 @@ export default function ShowQuestionsList({
       icon: <ExclamationCircleFilled />,
       // content: "Some descriptions",
       onOk() {
-        // console.log("OK");
         // now delete the group from the database and update the UI as well
         axiosSecure
           .delete(`/question-group/${group?._id}`)
           .then((res) => {
-            // console.log(res);
             setReCall(!reCall);
             message.success("Group deleted successfully");
           })
           .catch((err) => {
-            // console.log(err);
             message.error("Failed to delete group");
           });
       },
-      onCancel() {
-        // console.log("Cancel");
-      },
+      onCancel() {},
     });
   };
 
@@ -113,8 +108,6 @@ export default function ShowQuestionsList({
       ),
     },
   ];
-
-  console.log("bookType group 116 -> ", { bookType, group });
 
   return (
     <div className="border p-4 rounded-md flex flex-col items-start justify-start gap-4 flex-grow w-full">

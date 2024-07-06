@@ -11,6 +11,7 @@ import SignUp from "../Pages/Authentication/SignUp";
 import ExamLists from "../Pages/ExamLists/ExamLists";
 import ExamRunning from "../Pages/ExamRunning/ExamRunning";
 import Home from "../Pages/Home/Home";
+import Payment from "../Pages/Payment/Payment";
 import Profile from "../Pages/Profile/Profile";
 import Results from "../Pages/Results/Results";
 import IsAdmin from "./IsAdmin";
@@ -51,6 +52,22 @@ const Routers = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Results />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/payment",
+        element: (
+          <PrivateRoute>
+            <Payment />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/payment/:status",
+        element: (
+          <PrivateRoute>
+            <Payment />
           </PrivateRoute>
         ),
       },

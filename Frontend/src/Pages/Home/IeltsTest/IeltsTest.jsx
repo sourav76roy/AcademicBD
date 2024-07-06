@@ -16,7 +16,7 @@ export default function IeltsTest() {
       <Container>
         <SectionTitle
           title="test you skills"
-          description="Start Your Journey With AcademicBD."
+          description="We develop and write the IELTS test."
         />
 
         {/* section content */}
@@ -25,28 +25,24 @@ export default function IeltsTest() {
             cartTitle="Reading Test"
             img={AcademicReading}
             type="reading"
-            description="This is Your Reading test for start the test click on start button below"
           />
 
           <IeltsCard
             cartTitle="Writing Test"
             img={AcademicWriting}
             type="writing"
-            description="This is Your Writing test for start the test click on start button below "
           />
 
           <IeltsCard
             cartTitle="Speaking Test"
             img={AcademicSpeaking}
             type="speaking"
-            description="This is Your Speaking test for start the test click on start button below "
           />
 
           <IeltsCard
             cartTitle="Listening Test"
             img={AcademicListening}
             type="listening"
-            description="This is Your Listening test for start the test click on start button below"
           />
         </Row>
       </Container>
@@ -55,7 +51,7 @@ export default function IeltsTest() {
 }
 
 // ielts card
-function IeltsCard({ cartTitle, img, type, description }) {
+function IeltsCard({ cartTitle, img, type }) {
   return (
     <Col span={6}>
       <Card
@@ -70,12 +66,13 @@ function IeltsCard({ cartTitle, img, type, description }) {
       >
         {/* demo description */}
         <p className="text-center text-gray-500 mb-4">
-         {description}
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
+          dolorum, nemo, quod, quidem voluptas quas quae quibusdam
         </p>
 
-        <div className="flex justify-center items-stretch ">
+        <div className="flex justify-center items-stretch">
           <Link to="/exam-lists" state={type}>
-            <Button className="bg-green-500"> Start </Button>
+            <Button> Let's Go </Button>
           </Link>
         </div>
       </Card>
